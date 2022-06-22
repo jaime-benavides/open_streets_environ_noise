@@ -13,6 +13,8 @@ a_01_prepare_area_geometrical_data.R
 
 a_02_prepare_street_geometrical_data.R (divided in 5 parts to parallel the process)
 
+- lion_streets_simp.rds - simplified version of the lion street segment dataset
+
 a_02_prepare_street_geometrical_data_collect.R (collects data from previous step)
 
 - streets_nyc_geom_street.rds - geometrical parameters at each street segment
@@ -23,35 +25,33 @@ a_03_prepare_census_data.R
 
 a_04_prepare_311_data.R
 
-- nyc_311_noise_calls_2019_present.rds
+- nyc_311_noise_calls_2019_present.rds - noise complaints from 311 starting 2019
 
 a_04_prepare_noise_data.R
 
-- noise_prep.rds
+- noise_prep.rds - clean noise complaint dataset ready to use in the analysis
 
 a_05_prepare_poi_data.R
 
-- open_restaurants_nyc_nas.rds
+- open_restaurants_nyc_nas.rds - open restaurant dataset after geocoding (i.e. obtaining coordinates from addresses)
 
-- poi_nyc.rds
+- poi_nyc.rds - at each census tract, number of POIs and open restaurant ready for analysis
 
 a_06_prepare_open_streets_trans_altern_data.R
 
-- cns_trct_open_streets.rds 
+- open_streets_imp_intermediate.rds - open streets by transportation alternatives after geocoding addresses to coordinates
 
-- open_streets_ta_point.rds
-
-- open_streets_imp_intermediate.rds 
+- open_streets_ta_point.rds - open streets by transportation alternatives dataset after cleaning and converting to spatial object, ready for analysis
 
 a_06_prepare_open_streets_data.R
 
-- lion_streets_simp.rds
+- cns_trct_open_streets.rds - presence (ever) of open streets given NYC DOT dataset or Transportation Alternatives dataset 
 
-- open_streets_prep_rev01.rds 
+- op_st_presence_df_rev01.rds - daily presence of open streets in each census tract
 
-- op_st_perc_area_df.rds 
+- op_st_perc_area_df.rds - daily proportion of area covered by open streets in each census tract
 
-- op_st_presence_df_rev01.rds 
+- open_streets_prep_rev01.rds - open street dataset ready for analysis including temporal variables
 
 ### Data exploration (data_exploration) list:
 

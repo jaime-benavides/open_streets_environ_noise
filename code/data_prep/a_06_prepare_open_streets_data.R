@@ -1,4 +1,4 @@
-# aim: prepare open streets implemented data
+# aim: prepare open streets dataset for main analysis
 # author: Jaime Benavides
 # date: 11/15/21
 
