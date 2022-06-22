@@ -3,7 +3,9 @@ Repository for reviewing the code of the project Unintended Impacts of Open Stre
 
 note: please run init_directory_structure.R first to create folders. Also run this script before doing anything else, currently done via source(paste0(project.folder,'init_directory_structure.R'), to ensure that the folder locations are known in each script
 
-Data preparation (data_prep) list:
+## Code
+
+### Data preparation (data_prep) list:
 
 a_01_prepare_area_geometrical_data.R
 
@@ -23,13 +25,13 @@ a_06_prepare_open_streets_trans_altern_data.R
 
 a_06_prepare_open_streets_data.R
 
-Data exploration (data_exploration) list:
+### Data exploration (data_exploration) list:
 
 b_01_eda_noise_complaints.R
 
 b_02_eda_open_streets.R
 
-Model running (models) list:
+### Model running (models) list:
 
 c_01_model_street_sidewalk_main_s5.R
 c_02_model_vehicle_main_s5.R
@@ -45,19 +47,30 @@ c_11_model_street_sidewalk_poi.R
 c_12_model_vehicle_poi.R
 c_13_model_street_sidewalk_spatial.R
 c_14_model_vehicle_spatial.R
+c_15_analysis_model_res.R
 
-Data (data) list:
+## Data (data) list:
 
-demography
+### Raw
+
+#### demography
 
 NYC boroughs - nybb.shp -  https://www1.nyc.gov/site/planning/data-maps/open-data/districts-download-metadata.page
 
-geometry
+#### mobility
 
-buildings
+#### geometry
+
+##### buildings
 
 NYC building footprints - geo_export_f7a89c9b-6561-41c9-b3a5-8114624ae6ba.shp - https://data.cityofnewyork.us/Housing-Development/Building-Footprints/nqwf-w8eh
 
-streets
+##### streets
 
 NYC streets - lion.gdb - https://www1.nyc.gov/site/planning/data-maps/open-data/dwn-lion.page
+
+
+##### land use
+
+### generated 
+
