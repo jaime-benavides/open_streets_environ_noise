@@ -1,3 +1,5 @@
+# aim: collects and summarizes results
+
 # First step to load packages etc.
 rm(list=ls())
 

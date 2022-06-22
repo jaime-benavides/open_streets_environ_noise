@@ -1,3 +1,5 @@
+# aim: vehicle main analysis
+
 # First step to load packages etc.
 rm(list=ls())
 

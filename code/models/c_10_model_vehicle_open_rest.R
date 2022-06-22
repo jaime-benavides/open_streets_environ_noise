@@ -1,3 +1,5 @@
+# aim: vehicle model from main analysis adding open restaurants as covariate
+
 # First step to load packages etc.
 rm(list=ls())
 

@@ -1,3 +1,5 @@
+# aim: street_sidewalk main analysis
+
 # First step to load packages etc.
 rm(list=ls())
 

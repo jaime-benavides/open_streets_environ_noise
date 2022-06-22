@@ -1,4 +1,4 @@
-# aim: prepare points of interest per census tract dataset
+# aim: prepare dataset on points of interest and open restaurants per census tract 
 # author: Jaime Benavides
 # date: 01/14/22
 

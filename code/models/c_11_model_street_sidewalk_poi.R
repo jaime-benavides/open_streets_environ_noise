@@ -1,3 +1,5 @@
+# aim: street_sidewalk model from main analysis adding POIs as covariate
+
 # First step to load packages etc.
 rm(list=ls())
 

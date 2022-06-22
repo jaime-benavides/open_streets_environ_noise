@@ -7,43 +7,43 @@ note: please run init_directory_structure.R first to create folders. Also run th
 
 ### Data preparation (data_prep) list:
 
-a_01_prepare_area_geometrical_data.R
+a_01_prepare_area_geometrical_data.R - estimate geometrical parameters by area of 250 m x 250 m
 
-- nyc_neigh_regions.rds - geometrical parameters at 250 m x 250 m resolution 
+- nyc_neigh_regions.rds - geometrical parameters (e.g. building density) at 250 m x 250 m resolution 
 
-a_02_prepare_street_geometrical_data.R (divided in 5 parts to parallel the process)
+a_02_prepare_street_geometrical_data.R (divided in 5 parts to parallel the process) - geometrical parameters (e.g. street width) at each street segment
 
 - lion_streets_simp.rds - simplified version of the lion street segment dataset
 
-a_02_prepare_street_geometrical_data_collect.R (collects data from previous step)
+a_02_prepare_street_geometrical_data_collect.R (collects data from previous step) 
 
 - streets_nyc_geom_street.rds - geometrical parameters at each street segment
 
-a_03_prepare_census_data.R
+a_03_prepare_census_data.R - obtain sociodemographic information and put it together with geometrical parameters at census tract level 
 
-- census_tracts_ses.rds - socio-demographic data at census tract level
+- census_tracts_ses.rds - socio-demographic and geometrical parameter data at census tract level
 
-a_04_prepare_311_data.R
+a_04_prepare_311_data.R - filter noise complaints from 311 starting 2019 and save to r object
 
 - nyc_311_noise_calls_2019_present.rds - noise complaints from 311 starting 2019
 
-a_04_prepare_noise_data.R
+a_04_prepare_noise_data.R - clean noise complaint dataset and prepare for the analysis
 
-- noise_prep.rds - clean noise complaint dataset ready to use in the analysis
+- noise_prep.rds - noise complaint dataset 
 
-a_05_prepare_poi_data.R
+a_05_prepare_poi_data.R - prepare dataset on points of interest and open restaurants per census tract
 
 - open_restaurants_nyc_nas.rds - open restaurant dataset after geocoding (i.e. obtaining coordinates from addresses)
 
 - poi_nyc.rds - at each census tract, number of POIs and open restaurant ready for analysis
 
-a_06_prepare_open_streets_trans_altern_data.R
+a_06_prepare_open_streets_trans_altern_data.R - prepare open streets transportation alternatives data
 
 - open_streets_imp_intermediate.rds - open streets by transportation alternatives after geocoding addresses to coordinates
 
 - open_streets_ta_point.rds - open streets by transportation alternatives dataset after cleaning and converting to spatial object, ready for analysis
 
-a_06_prepare_open_streets_data.R
+a_06_prepare_open_streets_data.R - prepare open streets dataset for main analysis mixing both NYC DOT and Transportation Alternatives data
 
 - cns_trct_open_streets.rds - presence (ever) of open streets given NYC DOT dataset or Transportation Alternatives dataset 
 
@@ -55,41 +55,41 @@ a_06_prepare_open_streets_data.R
 
 ### Data exploration (data_exploration) list:
 
-b_01_eda_noise_complaints.R
+b_01_eda_noise_complaints.R - exploratory data analysis of noise complaints
 
-b_02_eda_open_streets.R
+b_02_eda_open_streets.R - exploratory data analysis of open streets
 
 ### Model running (models) list:
 
-c_01_model_street_sidewalk_main_s5.R
+c_01_model_street_sidewalk_main_s5.R - street_sidewalk main analysis
 
-c_02_model_vehicle_main_s5.R
+c_02_model_vehicle_main_s5.R - vehicle main analysis
 
-c_03_model_street_sidewalk_s4.R
+c_03_model_street_sidewalk_s4.R - street_sidewalk model from main analysis with 4 knots in area covered by open streets
 
-c_04_model_vehicle_s4.R
+c_04_model_vehicle_s4.R - vehicle model from main analysis with 4 knots in area covered by open streets
 
-c_05_model_street_sidewalk_s3.R
+c_05_model_street_sidewalk_s3.R - street_sidewalk model from main analysis with 3 knots in area covered by open streets
 
-c_06_model_vehicle_s3.R
+c_06_model_vehicle_s3.R - vehicle model from main analysis with 3 knots in area covered by open streets
 
-c_07_model_street_sidewalk_trans_altern.R
+c_07_model_street_sidewalk_trans_altern.R - street_sidewalk model from main analysis using open streets from transportation alternatives instead of NYC DOT 
 
-c_08_model_vehicle_trans_altern.R
+c_08_model_vehicle_trans_altern.R - vehicle model from main analysis using open streets from transportation alternatives instead of NYC DOT 
 
-c_09_model_street_sidewalk_open_rest.R
+c_09_model_street_sidewalk_open_rest.R - street_sidewalk model from main analysis adding open restaurants as covariate
 
-c_10_model_vehicle_open_rest.R
+c_10_model_vehicle_open_rest.R - vehicle model from main analysis adding open restaurants as covariate
 
-c_11_model_street_sidewalk_poi.R
+c_11_model_street_sidewalk_poi.R - street_sidewalk model from main analysis adding POIs as covariate
 
-c_12_model_vehicle_poi.R
+c_12_model_vehicle_poi.R - vehicle model from main analysis adding POIs as covariate
 
-c_13_model_street_sidewalk_spatial.R
+c_13_model_street_sidewalk_spatial.R - street_sidewalk model from main analysis adding spatial term
 
-c_14_model_vehicle_spatial.R
+c_14_model_vehicle_spatial.R - vehicle model from main analysis adding spatial term
 
-c_15_analysis_model_res.R
+c_15_analysis_model_res.R - collects and summarizes results 
 
 ## Data (data) list:
 

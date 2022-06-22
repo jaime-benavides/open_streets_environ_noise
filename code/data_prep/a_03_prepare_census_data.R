@@ -1,4 +1,4 @@
-
+# aim: obtain sociodemographic information and put it together with geometrical parameters at census tract level 
 
 # First step to load packages etc.
 rm(list=ls())

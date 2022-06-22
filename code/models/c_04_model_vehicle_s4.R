@@ -1,3 +1,5 @@
+# aim: vehicle model from main analysis with 4 knots in area covered by open streets
+
 # First step to load packages etc.
 rm(list=ls())
 

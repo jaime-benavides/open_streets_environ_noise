@@ -1,4 +1,4 @@
-# aim: estimate building stats by area of 250 m x 250 m and street segment parameters following method from https://gmd.copernicus.org/articles/12/2811/2019/
+# aim: estimate geometrical parameters by area of 250 m x 250 m 
 # First step to load packages etc.
 rm(list=ls())
 

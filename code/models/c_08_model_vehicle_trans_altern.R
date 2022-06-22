@@ -1,3 +1,5 @@
+# aim: vehicle model from main analysis using open streets from transportation alternatives instead of NYC DOT
+
 # First step to load packages etc.
 rm(list=ls())
 
