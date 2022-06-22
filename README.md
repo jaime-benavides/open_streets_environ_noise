@@ -9,49 +9,49 @@ note: please run init_directory_structure.R first to create folders. Also run th
 
 a_01_prepare_area_geometrical_data.R
 
-nyc_neigh_regions.rds - geometrical parameters at 250 m x 250 m resolution 
+- nyc_neigh_regions.rds - geometrical parameters at 250 m x 250 m resolution 
 
 a_02_prepare_street_geometrical_data.R (divided in 5 parts to parallel the process)
 
 a_02_prepare_street_geometrical_data_collect.R (collects data from previous step)
 
-streets_nyc_geom_street.rds - geometrical parameters at each street segment
+- streets_nyc_geom_street.rds - geometrical parameters at each street segment
 
 a_03_prepare_census_data.R
 
-census_tracts_ses.rds - socio-demographic data at census tract level
+- census_tracts_ses.rds - socio-demographic data at census tract level
 
 a_04_prepare_311_data.R
 
-nyc_311_noise_calls_2019_present.rds
+- nyc_311_noise_calls_2019_present.rds
 
 a_04_prepare_noise_data.R
 
-noise_prep.rds
+- noise_prep.rds
 
 a_05_prepare_poi_data.R
 
-open_restaurants_nyc_nas.rds
+- open_restaurants_nyc_nas.rds
 
-poi_nyc.rds
+- poi_nyc.rds
 
 a_06_prepare_open_streets_trans_altern_data.R
 
-cns_trct_open_streets.rds 
+- cns_trct_open_streets.rds 
 
-open_streets_ta_point.rds
+- open_streets_ta_point.rds
 
-open_streets_imp_intermediate.rds 
+- open_streets_imp_intermediate.rds 
 
 a_06_prepare_open_streets_data.R
 
-lion_streets_simp.rds
+- lion_streets_simp.rds
 
-open_streets_prep_rev01.rds 
+- open_streets_prep_rev01.rds 
 
-op_st_perc_area_df.rds 
+- op_st_perc_area_df.rds 
 
-op_st_presence_df_rev01.rds 
+- op_st_presence_df_rev01.rds 
 
 ### Data exploration (data_exploration) list:
 
