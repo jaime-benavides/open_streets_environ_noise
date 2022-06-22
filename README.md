@@ -65,13 +65,25 @@ c_15_analysis_model_res.R
 
 ## Data (data) list:
 
-### Raw
+### Raw (description - file name - link to source)
 
 #### demography
 
 NYC boroughs - nybb.shp -  https://www1.nyc.gov/site/planning/data-maps/open-data/districts-download-metadata.page
 
+#### noise
+
+311 calls - 311_Service_Requests_from_2010_to_Present.csv - https://nycopendata.socrata.com/Social-Services/311-Service-Requests-from-2010-to-Present/erm2-nwe9
+
+#### points of interest
+
+Points of interest - geo_export_a41a111b-823e-4751-b748-0f3782bc90b7.shp - https://data.cityofnewyork.us/City-Government/Points-Of-Interest/rxuy-2muj
+
+Facilities - facilities_complete_2021-05-07.shp - https://capitalplanning.nyc.gov/map/facilities#10/40.7128/-74.0807
+
 #### mobility
+
+safegraph - NYC_CensusTracts_share.RData - https://docs.safegraph.com/docs/weekly-patterns
 
 #### geometry
 
@@ -83,8 +95,40 @@ NYC building footprints - geo_export_f7a89c9b-6561-41c9-b3a5-8114624ae6ba.shp - 
 
 NYC streets - lion.gdb - https://www1.nyc.gov/site/planning/data-maps/open-data/dwn-lion.page
 
+Open Streets (NYC DOT) - OpenStreets2021_11_22.shp - NYC DOT Personal communication 
+
+Open Streets (Transportation Alternatives) - open_streets_implemented_TA.xlsx - https://www.transalt.org/open-streets-forever-nyc#methodology
 
 ##### land use
 
+Open Restaurants - Open_Restaurant_Applications.csv - https://data.cityofnewyork.us/Transportation/Open-Restaurant-Applications/pitm-atqc
+
 ### generated 
 
+nyc_neigh_regions.rds 
+
+streets_nyc_geom_street.rds
+
+census_tracts_ses.rds
+
+nyc_311_noise_calls_2019_present.rds
+
+noise_prep.rds
+
+open_restaurants_nyc_nas.rds
+
+poi_nyc.rds
+
+lion_streets_simp.rds
+
+open_streets_prep_rev01.rds 
+
+op_st_perc_area_df.rds 
+
+op_st_presence_df_rev01.rds 
+
+cns_trct_open_streets.rds 
+
+open_streets_ta_point.rds
+
+open_streets_imp_intermediate.rds 
