@@ -34,19 +34,33 @@ b_02_eda_open_streets.R
 ### Model running (models) list:
 
 c_01_model_street_sidewalk_main_s5.R
+
 c_02_model_vehicle_main_s5.R
+
 c_03_model_street_sidewalk_s4.R
+
 c_04_model_vehicle_s4.R
+
 c_05_model_street_sidewalk_s3.R
+
 c_06_model_vehicle_s3.R
+
 c_07_model_street_sidewalk_trans_altern.R
+
 c_08_model_vehicle_trans_altern.R
+
 c_09_model_street_sidewalk_open_rest.R
+
 c_10_model_vehicle_open_rest.R
+
 c_11_model_street_sidewalk_poi.R
+
 c_12_model_vehicle_poi.R
+
 c_13_model_street_sidewalk_spatial.R
+
 c_14_model_vehicle_spatial.R
+
 c_15_analysis_model_res.R
 
 ## Data (data) list:
