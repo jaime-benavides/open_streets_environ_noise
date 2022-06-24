@@ -11,7 +11,7 @@ a_01_prepare_area_geometrical_data.R - estimate geometrical parameters by area o
 
 - nyc_neigh_regions.rds - geometrical parameters (e.g. building density) at 250 m x 250 m resolution 
 
-a_02_prepare_street_geometrical_data.R (divided in 5 parts to parallel the process) - geometrical parameters (e.g. street width) at each street segment
+a_02_prepare_street_geometrical_data.R (time consuming: divided in 5 scripts to run in parallel, the first one is documented) - geometrical parameters (e.g. street width) at each street segment
 
 - lion_streets_simp.rds - simplified version of the lion street segment dataset
 
@@ -43,25 +43,29 @@ a_06_prepare_open_streets_trans_altern_data.R - prepare open streets transportat
 
 - open_streets_ta_point.rds - open streets by transportation alternatives dataset after cleaning and converting to spatial object, ready for analysis
 
-a_06_prepare_open_streets_data.R - prepare open streets dataset for main analysis mixing both NYC DOT and Transportation Alternatives data
+a_06_prepare_open_streets_data.R - prepare open streets dataset for main analysis putting together both NYC DOT and Transportation Alternatives data
 
 - cns_trct_open_streets.rds - presence (ever) of open streets given NYC DOT dataset or Transportation Alternatives dataset 
 
-- op_st_presence_df_rev01.rds - daily presence of open streets in each census tract
+- op_st_presence_df.rds - daily presence of open streets in each census tract
 
 - op_st_perc_area_df.rds - daily proportion of area covered by open streets in each census tract
 
-- open_streets_prep_rev01.rds - open street dataset ready for analysis including temporal variables
+- open_streets_prep.rds - open street dataset ready for analysis including temporal variables
 
-### Data exploration (data_exploration) list:
+### Data exploration (data_exploration) list including tables/figures:
 
 b_01_eda_noise_complaints.R - exploratory data analysis of noise complaints
 
+- Table 1, Figure 1a, Figure 1c, Table 2
+
 b_02_eda_open_streets.R - exploratory data analysis of open streets
 
-### Model running (models) list:
+- Figure 2, Table 2, Figure 1b, Figure 1d
 
-c_01_model_street_sidewalk_main_s5.R - street_sidewalk main analysis
+### Model running (models) list including tables/figures:
+
+c_01_model_street_sidewalk_main_s5.R - street_sidewalk main analysis (this script is better documented than those below in the code lines that are shared, which are most of them)
 
 c_02_model_vehicle_main_s5.R - vehicle main analysis
 
@@ -90,6 +94,8 @@ c_13_model_street_sidewalk_spatial.R - street_sidewalk model from main analysis 
 c_14_model_vehicle_spatial.R - vehicle model from main analysis adding spatial term
 
 c_15_analysis_model_res.R - collects and summarizes results 
+
+- Figure 3, Figure 4, Figure S1, Figure S2, Figure S3
 
 ## Data (data) list:
 

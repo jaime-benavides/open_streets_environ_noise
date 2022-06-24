@@ -1,14 +1,15 @@
 # Supporting functions
 
 # estimate area geometrical parameters
-estimate_geom_param  <- function(reg_pos) {
-  # set a region within the spatial_context to work on (named sp_context) example i <- 800
-  sp_context <- spatial_context[reg_pos[1],] # 
-  # intersect NYC buildings to new sp_context
+estimate_geom_param  <- function(reg_pos) { # reg_pos stands for region position (index)
+  # set a region within the spatial_context to work on (named sp_context)
+  sp_context <- spatial_context[reg_pos[1],] # multiapply:apply gives in this step the different grid cells to the function using the index at reg_pos
+  # intersect NYC buildings with new sp_context
   buildings_context <- sf::st_intersection(buildings, sp_context)
   if (nrow(buildings_context) == 0) {buildings_context <- data.frame()}
-  if(nrow(buildings_context) > 0) {
+  if(nrow(buildings_context) > 0) { # when there are buildings in the grid cell, estimate the following
     mean_height <- mean(buildings_context$height, na.rm = TRUE)
+    # this is (planar) building density estimated by area of buildings / area in grid cell
     area_density_plan <- as.numeric(sum(sf::st_area(buildings_context)) / sf::st_area(sp_context))
     max_height <- max(buildings_context$height, na.rm = TRUE)
     if(nrow(buildings_context) > 1) {
@@ -17,17 +18,18 @@ estimate_geom_param  <- function(reg_pos) {
       sd_height <- 0
     }
   } else {
+    # if there are no buildings assign zero values to geometrical parameters
     mean_height <- 0
     area_density_plan <- 0
     sd_height <- 0
     max_height  <- 0
   }
-  
+  # build data structure for the output as: index, geometrical parameters
   reg_cum <- c(reg_pos[1], mean_height,  area_density_plan,  sd_height, max_height)
   return(reg_cum)
 }
 
-
+# this function build rectangular buffers on each side of the street segment with a given width 
 two_buf <- function(line,width,minEx){
   Buf0 <- rgeos::gBuffer(line,width=minEx,capStyle="SQUARE")
   Buf1 <- rgeos::gBuffer(line,width=width,capStyle="FLAT")

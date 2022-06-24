@@ -3,17 +3,20 @@
 # First step to load packages etc.
 rm(list=ls())
 
-# 1a Declare root directory, folder locations and load essential stuff
+# declare root directory, folder locations and load essential stuff
 project.folder = paste0(print(here::here()),'/')
 source(paste0(project.folder,'init_directory_structure.R'))
 source(paste0(functions.folder,'script_initiate.R'))
 
-
+# read geometrical parameters at 250 m x 250 m
 neigh_regions_geom <- readRDS(paste0(generated.data.folder, "nyc_neigh_regions.rds"))
 neigh_regions_geom_df <- neigh_regions_geom
 sf::st_geometry(neigh_regions_geom_df) <- NULL
+
+# read spatial grid at 250 m x 250 m
 spatial_grid <- readRDS(paste0(generated.data.folder, "spatial_grid_250m_nyc.rds"))
 
+# put together area geometrical parameters and grid cells
 neigh_regions_grid <- dplyr::left_join(spatial_grid, neigh_regions_geom_df, by = "reg_id")
 
 # Getting data from the 2015-2019 5-year ACS
@@ -27,7 +30,7 @@ acs.dt <- tidycensus::get_acs(geography = "tract", state = "NY", variables = c("
 
 acs.wide <- spread(acs.dt[,1:4], variable, estimate)  
 names(acs.wide)[3:6] <- c("popn", "black", "hisp", "pov") 
-
+# estimate proportion of socio-demographic variables
 acs.wide$perc.black <- acs.wide$black/acs.wide$popn    
 acs.wide$perc.hisp  <- acs.wide$hisp/acs.wide$popn    
 acs.wide$perc.pov   <- acs.wide$pov/acs.wide$popn    
@@ -36,6 +39,7 @@ acs.wide$perc.pov   <- acs.wide$pov/acs.wide$popn
 #bronx 005; kings 047; manhattan 061; queens 081; stat isl 085; 
 acs.nyc <- acs.wide[which(substr(acs.wide$GEOID, 1, 5) %in% c("36005", "36047", "36061", "36081", "36085")),]
 
+# do some data cleaning and transformations
 acs.nyc$boro_code <- ifelse(substr(acs.nyc$GEOID, 3, 5) == "005", 2, NA)
 acs.nyc$boro_code <- ifelse(substr(acs.nyc$GEOID, 3, 5) == "047", 3, acs.nyc$boro_code)
 acs.nyc$boro_code <- ifelse(substr(acs.nyc$GEOID, 3, 5) == "061", 1, acs.nyc$boro_code)
@@ -48,13 +52,14 @@ acs.nyc$perc.black <- ifelse(acs.nyc$boro_ct201 == "1014300", NA, acs.nyc$perc.b
 acs.nyc$perc.hisp  <- ifelse(acs.nyc$boro_ct201 == "1014300", NA, acs.nyc$perc.hisp)
 acs.nyc$perc.pov   <- ifelse(acs.nyc$boro_ct201 == "1014300", NA, acs.nyc$perc.pov)
 
+# obtain the spatial object containing census tracts that will be used in further analysis 
 census_tracts_ses <- acs.nyc %>%
   sf::st_transform(2163)
 
-# area (km2)
+# estimate area (km2)
 census_tracts_ses$area_km2 <- as.numeric(sf::st_area(census_tracts_ses)) / (1000*1000)
 
-# building density
+# perform areal interpolation to estimate geometrical parameters at each census tract 
 target <- census_tracts_ses[,"GEOID"]
 source <- neigh_regions_grid[,c("reg_id", "area_density_plan", "mean_height")]
 
@@ -63,6 +68,7 @@ build_dens_cns_tct <- areal::aw_interpolate(target, tid = GEOID, source = source
                                             weight = "sum", output = "tibble", intensive = "area_density_plan")
 mean_height_cns_tct <- areal::aw_interpolate(target, tid = GEOID, source = source, sid = reg_id,
                                              weight = "sum", output = "tibble", intensive = "mean_height")
+# combine areal interpolations within the census tract dataset
 cns_trt_geom <- dplyr::left_join(build_dens_cns_tct, mean_height_cns_tct, by = "GEOID")
 
 # put together
@@ -70,10 +76,5 @@ census_tracts_ses <- dplyr::left_join(census_tracts_ses, cns_trt_geom, by = "GEO
 
 # estimate population density in inhabitants / km2
 census_tracts_ses$pop_dens <- census_tracts_ses$popn/census_tracts_ses$area_km2
-
+# save dataset
 saveRDS(census_tracts_ses, paste0(generated.data.folder, "census_tracts_ses.rds"))
-
-
-
-
-

@@ -24,7 +24,6 @@ for(c in 201:400){
   sp_context <- spatial_context[c,] # 
   sp_context_ext <- sf::st_buffer(sp_context, dist = 200)
   # intersect NYC buildings to new sp_context
-  buildings_context <- sf::st_intersection(buildings, sp_context_ext)
   sel = sf::st_intersects(x = buildings, y = sp_context_ext)
   sel_logical = lengths(sel) > 0
   buildings_context = buildings[sel_logical, ]
