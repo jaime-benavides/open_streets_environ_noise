@@ -96,7 +96,7 @@ noise_df_def <- dplyr::left_join(noise_df_complaint, noise_df_timeday, noise_df_
 # add days with zero noise complaints in order to have a complete dataset (not only days with noise complaints)
 
 # build a dataframe with zeros per noise complaints
-# create vector with dates in the study period (summer 2019 and summer 2021)
+# create vector with dates in the study period (summer 2019 and summer 2021) ###--- vdo_comment: question - how did you decide on the days for summer beg and end?
 dates = as.character(c(seq(ISOdatetime(year = "2019",
                                        month = "06", day = "21", hour = "00", min = 0,
                                        sec = 0, tz = "UTC"),

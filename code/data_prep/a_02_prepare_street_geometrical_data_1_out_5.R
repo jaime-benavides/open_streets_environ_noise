@@ -20,7 +20,7 @@ buildings <- sf::read_sf(paste0(buildings.data.folder, "geo_export_f7a89c9b-6561
   sf::st_transform(2163) %>%
   dplyr::mutate(height = heightroof * 0.3048)
 
-# read/transform lion streets
+# read/transform lion streets ###--- vdo_comment: what exactly are lion streets? if theyre a specific part of NYC, would describe that ---###
 lion_streets <- sf::st_read(paste0(streets.data.folder, "streets/nyclion_21a/lion/lion.gdb"), layer = "lion")%>%
   sf::st_transform(2163)
 # this is a previous step needed before simplifying (i.e. transform curves to straight segments)

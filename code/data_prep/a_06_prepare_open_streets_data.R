@@ -53,7 +53,7 @@ sf::st_geometry(open_streets_imp_df) <- NULL
 # get active open streets from transportation alternatives dataset
 op_st_active <- which(open_streets_imp_sf$'Active.vs.Non-Operational' == "Active")
 
-# correct an na on the open street length column after visual inspection and distance measured in google maps
+# correct an na on the open street length column after visual inspection and distance measured in google maps 
 open_streets_imp_df$`Length.of.&#10;Open&#10;Street.(ft)`[op_st_active[106]] <- 885.827
 length_active_open_street <- open_streets_imp_df$`Length.of.&#10;Open&#10;Street.(ft)`[op_st_active] * 0.3048 # feet to meters
 # estimate radius of influence of the active open street as open street length / 2 
@@ -78,7 +78,7 @@ census_tracts_ses$op_st_presence <- as.integer(sel_logical)
 open_streets_nyc_dot_areas_df <- open_streets_nyc_dot_areas
 sf::st_geometry(open_streets_nyc_dot_areas_df) <- NULL
 
-# save open street data "static", not dynamic over time
+# save open street data "static", not dynamic over time ###--- vdo comment: is there a case where open streets in 2019 differs from open streets 2021? Wouldn't that be a bit dynamic?---###
 saveRDS(census_tracts_ses[,c("GEOID", "op_st_active", "op_st_presence")], paste0(generated.data.folder, 
                                                                                  "cns_trct_open_streets.rds"))
 

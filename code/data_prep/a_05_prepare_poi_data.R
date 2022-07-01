@@ -33,7 +33,7 @@ colnames(open_restaurants_nyc_nas)[c(34,35)] <- c("Latitude", "Longitude")
 open_restaurants_nyc <- open_restaurants_nyc %>% dplyr::rows_update(open_restaurants_nyc_nas[,c("globalid", "Latitude", "Longitude")], by = "globalid")
 
 coord_nas <- which(is.na(open_restaurants_nyc$Longitude)  | is.na(open_restaurants_nyc$Latitude)) 
-length(coord_nas) / nrow(open_restaurants_nyc) * 200 # 4.5 % do not have coordinates
+length(coord_nas) / nrow(open_restaurants_nyc) * 200 # 4.5 % do not have coordinates ###--- vdo comment: why do you multiply by 200?
 
 # build spatial open restaurant dataset 
 open_restaurants_nyc_sf <- sf::st_as_sf(open_restaurants_nyc[-coord_nas,], coords = c("Longitude",
