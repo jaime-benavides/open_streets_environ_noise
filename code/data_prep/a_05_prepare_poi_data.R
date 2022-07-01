@@ -33,14 +33,14 @@ colnames(open_restaurants_nyc_nas)[c(34,35)] <- c("Latitude", "Longitude")
 open_restaurants_nyc <- open_restaurants_nyc %>% dplyr::rows_update(open_restaurants_nyc_nas[,c("globalid", "Latitude", "Longitude")], by = "globalid")
 
 coord_nas <- which(is.na(open_restaurants_nyc$Longitude)  | is.na(open_restaurants_nyc$Latitude)) 
-length(coord_nas) / nrow(open_restaurants_nyc) * 200 # 4.5 % do not have coordinates
+length(coord_nas) / nrow(open_restaurants_nyc) * 200 # 4.5 % do not have coordinates ###--- vdo comment: why do you multiply by 200?
 
 # build spatial open restaurant dataset 
 open_restaurants_nyc_sf <- sf::st_as_sf(open_restaurants_nyc[-coord_nas,], coords = c("Longitude",
                                            "Latitude"  ), crs = 4326)  %>%
   sf::st_transform(2163)
 
-# read facilities dataset 
+# read facilities dataset ###--- vdo comment: possibly have a descrition that POIs are facilities + POI dataset (unless they are different?) Still would benefit from additional description---###
 facilities_nyc_sf <- sf::read_sf(paste0(points_of_interest.data.folder, "facilities_complete_2021-05-07.shp"))  %>%
   sf::st_transform(2163)
 
@@ -48,7 +48,7 @@ facilities_nyc_sf <- sf::read_sf(paste0(points_of_interest.data.folder, "facilit
 poi_nyc_sf <- sf::read_sf(paste0(points_of_interest.data.folder, "geo_export_a41a111b-823e-4751-b748-0f3782bc90b7.shp"))  %>%
   sf::st_transform(2163)
 
-# read safegraph dataset 
+# read safegraph dataset ###--- vdo comment: what does the safegraph dataset contribute?---###
 load(paste0(mobility.data.folder, "NYC_CensusTracts_share.RData"))
 safegraph_data <- comp
 colnames(safegraph_data)[1] <- "GEOID"

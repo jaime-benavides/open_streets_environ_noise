@@ -20,7 +20,7 @@ buildings <- sf::read_sf(paste0(buildings.data.folder, "geo_export_f7a89c9b-6561
   sf::st_transform(2163) %>%
   dplyr::mutate(height = heightroof * 0.3048)
 
-# read/transform lion streets
+# read/transform lion streets ###--- vdo_comment: what exactly are lion streets? if theyre a specific part of NYC, would describe that ---###
 lion_streets <- sf::st_read(paste0(streets.data.folder, "streets/nyclion_21a/lion/lion.gdb"), layer = "lion")%>%
   sf::st_transform(2163)
 # this is a previous step needed before simplifying (i.e. transform curves to straight segments)
@@ -94,7 +94,7 @@ for(c in 1:200){
         } else{
           dist_2 <- 0
         }
-        # calculate street width and street mean building height only if there are buildings at both sides of the street segment
+        # calculate street width and street mean building height only if there are buildings at both sides of the street segment ###--- vdo comment: what if there are are places without buildings on both sides? ---###
         if (dist_1 != 0 && dist_2 != 0) {
           lion_streets_simp[ids[i], "street_width"] <- dist_1 + dist_2 # street width is estimated as the sum of distance to buildings on each side of the street segment
           lion_streets_simp[ids[i], "building_height"] <- mean(c(buildings_1$height,buildings_2$height), na.rm = TRUE)
