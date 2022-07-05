@@ -66,7 +66,7 @@ data_scale$month <- as.factor(as.yearmon(data_scale$date,format="%Y-%m-%d"))
 # leaving out census tracts with NA in perc.pov, perc.hisp and perc.black
 data_scale <- data_scale[-which(is.na(data_scale$perc.black)),]
 
-# run model
+# run model ###--- vdo comment: discuss with Jaime if he unscales again for interpreation ---###
 all_openstreets_all_cnstract_trad_street_sidewalk_interv <- gamm4::gamm4(street_sidewalk ~ s(perc_area, k=5, fx=TRUE) + intervened + perc.pov + perc.black 
                                                                          + perc.hisp + pop_dens + area_density_plan + day_week + s(day, bs = "cr", fx = TRUE, k = months),
                                                                     random = ~(1|GEOID), family = negative.binomial(1), data = data_scale, 

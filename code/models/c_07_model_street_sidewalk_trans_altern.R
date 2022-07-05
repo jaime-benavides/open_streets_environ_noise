@@ -68,7 +68,7 @@ months <- ceiling(length(unique(data_scale$date))/31)
 data_scale$day_week <- as.factor(as.POSIXlt(data_scale$date)$wday)
 data_scale$month <- as.factor(as.yearmon(data_scale$date,format="%Y-%m-%d")) 
 
-
+###--- vdo comment: the k = 5 but in the manuscript, it says the main analysis is k = 4. Should the k be 4 instead of 5? ---###
 implem_all_cnstract_trad_street_sidewalk_interv <- gamm4::gamm4(street_sidewalk ~ s(perc_area, k=5, fx=TRUE) + intervened + perc.pov + perc.black + perc.hisp +
                                              pop_dens + area_density_plan + day_week + s(day, bs = "cr", fx = TRUE, k = months),
                                           random = ~(1|GEOID),
