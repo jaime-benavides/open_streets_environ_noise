@@ -54,11 +54,11 @@ op_st_noise$day <- 1 + as.numeric(as.Date(op_st_noise$date)) - as.numeric(as.Dat
 op_st_noise$day <- op_st_noise$day - ifelse(as.Date(op_st_noise$date) > as.Date("2020-01-01"),(as.numeric(as.Date("2021-06-21"))-as.numeric(as.Date("2019-09-23"))),0)
 
 scaled <- dplyr::ungroup(op_st_noise) %>% 
-  dplyr::select(perc_area, mean_height, area_density_plan, pop_dens, perc.black, perc.hisp, perc.pov, day, lon, lat) %>% 
+  dplyr::select(mean_height, area_density_plan, pop_dens, perc.black, perc.hisp, perc.pov, day, lon, lat) %>% 
   purrr::map_df(~ scale(.x, center = FALSE, scale = sd(.x, na.rm = TRUE)))
 
-data_scale <- cbind(op_st_noise[, c("GEOID", "date", "residential", "street_sidewalk", "commercial", "vehicle", "night_noise", "evening_noise", "afternoon_noise", "morning_noise", "treated", "intervened", "presence")],
-                  scaled[,c("perc_area", "mean_height", "area_density_plan", "pop_dens", "perc.black", "perc.hisp", "perc.pov", "day", "lon", "lat")])
+data_scale <- cbind(op_st_noise[, c("GEOID", "date", "residential", "street_sidewalk", "commercial", "vehicle", "night_noise", "evening_noise", "afternoon_noise", "morning_noise", "treated", "intervened", "presence", "perc_area")],
+                  scaled[,c("mean_height", "area_density_plan", "pop_dens", "perc.black", "perc.hisp", "perc.pov", "day", "lon", "lat")])
 
 
 # add temporal terms based on https://petolau.github.io/Analyzing-double-seasonal-time-series-with-GAM-in-R/

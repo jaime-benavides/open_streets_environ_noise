@@ -1,4 +1,4 @@
-#### aim: estimate geometrical parameters by area of 250 m x 250 m ###--- vdo_comment: are these geometrical parameters for roads, buildings, etc or all of NYC geometries? Would provide examples like you did in the readme (i.e. building density) ---###
+#### aim: estimate geometrical parameters related to buildings by area of 250 m x 250 m (e.g., building density)
 
 #### first step to load packages etc.
 rm(list=ls())
@@ -7,13 +7,13 @@ source(paste0(project.folder,'init_directory_structure.R'))
 source(paste0(functions.folder,'script_initiate.R'))
 
 ### load data and create grid
-# read NYC boroughs and create NYC boundaries ###--- vdo_comment: you have all the data sources in the read me, but since this is your first time ref data, maybe have a note referring to the readme for all data sources? ---###
+# read NYC boroughs and create NYC boundaries. This and other data sources are described in the readme file
 boroughs <- sf::st_read(paste0(demography.data.folder, "nybb.shp")) %>%
   sf::st_transform(2163)
 
 nyc_boundaries <- sf::st_union(boroughs)
 
-buildings <- sf::read_sf(paste0(buildings.data.folder, "geo_export_f7a89c9b-6561-41c9-b3a5-8114624ae6ba.shp")) %>% ###--- vdo_comment: do you ever use this "buildings" again in this script? I don't see it anywhere later ---###
+buildings <- sf::read_sf(paste0(buildings.data.folder, "geo_export_f7a89c9b-6561-41c9-b3a5-8114624ae6ba.shp")) %>% # these buildings are later used in the function estimate_geom_param
   sf::st_transform(4326) %>% # this is an intermediate step that I found it was needed to make it work :)
   sf::st_transform(2163) %>% # transform to EPSG:2163 Projected coordinate system for United States (USA)
   dplyr::mutate(height = heightroof * 0.3048) # height from feet to meters
@@ -42,7 +42,7 @@ regs <- spatial_context[1:1000,]
 regs_df <- as.data.frame(regs)
 regs_ap <- as.array(unlist(regs_df[,c("reg_id")]))
 dim(regs_ap) <- c(reg_pos = nrow(regs), col = 1)
-# run the estimate_geom_param function that can be found at code/functions/functions.R using 4 cores ###--- vdo_comment: quickly mention that using 4 cores makes the process faster for people not familiar---###
+# run the estimate_geom_param function that can be found at code/functions/functions.R using 4 cores (using 4 cores makes the process faster)
 geom_param <- multiApply::Apply(list(regs_ap), target_dims  = 'col',
                                 fun = estimate_geom_param, ncores = 4)$output1
 # adapt results to dataframe
@@ -284,7 +284,7 @@ saveRDS(neigh_regions_geom, paste0(generated.data.folder, "neigh_regions_buildin
 rm(regs, geom_param, neigh_regions_geom, centroids)
 
 # 13001 - 13904
-regs <- spatial_context[13001:13904,] ###--- vdo_comment: Just checking that there are 13904  grid cells? You can also replace 13904 with n(spatial context) for ease ---###
+regs <- spatial_context[13001:nrow(spatial_context),] 
 regs_df <- as.data.frame(regs)
 regs_ap <- as.array(unlist(regs_df[,c("reg_id")]))
 dim(regs_ap) <- c(reg_pos = nrow(regs), col = 1)

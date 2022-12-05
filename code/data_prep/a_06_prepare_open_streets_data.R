@@ -42,6 +42,17 @@ sf::st_geometry(open_streets_nyc_dot_df) <- NULL
 # assign street width from street segments dataset to the open street dataset
 open_streets_nyc_dot_df$street_width <- streets_nyc_geom_street_df[nearest, "street_width"]
 
+# visual inspection of the street width results related to open streets showed some inconsistencies in streets that have no buildings in both sides of the street segment. This error has been corrected manually as follows
+open_streets_nyc_dot_df[478,"street_width"] <- 4 # na to visual inspection doyers street
+# assign values that are zero after visual inspection
+ids_zeros <- c(360,365,484,292,471, 261, 260, 163,244, 492, 480, 1, 428, 342, 532, 525, 486,481,528,515,476,461,487, 305, 307, 534, 29, 291, 409,527,382,472,245,188, 473)
+width_zeros <- c(9,9,11, 25, 17, 15, 8, 10,8, 9, 8, 6, 25, 10, 6,6,6,6,6,6,6,6,11,11, 8,11,8,20,18,6,6,6,9,15,6)
+open_streets_nyc_dot_df[ids_zeros,"street_width"] <- width_zeros
+# visual inspection of polygons
+ids_resh <- c(475,479,519,516,376,377,341,205,338,241,185,152,533, 417,23,207,206)
+width_resh <- c(6,6,6,6,8,8,6,6,6,7,8,9,8,10,7,8,9)
+open_streets_nyc_dot_df[ids_resh,"street_width"] <- width_resh
+
 # build an area representing the space of the street using a buffer around the line of the open street with half of street width at each side
 open_streets_nyc_dot_areas <- sf::st_buffer(open_streets_nyc_dot, dist = open_streets_nyc_dot_df$street_width/2, endCapStyle = "FLAT")
 
@@ -78,7 +89,7 @@ census_tracts_ses$op_st_presence <- as.integer(sel_logical)
 open_streets_nyc_dot_areas_df <- open_streets_nyc_dot_areas
 sf::st_geometry(open_streets_nyc_dot_areas_df) <- NULL
 
-# save open street data "static", not dynamic over time ###--- vdo comment: is there a case where open streets in 2019 differs from open streets 2021? Wouldn't that be a bit dynamic?---###
+# save open street data 
 saveRDS(census_tracts_ses[,c("GEOID", "op_st_active", "op_st_presence")], paste0(generated.data.folder, 
                                                                                  "cns_trct_open_streets.rds"))
 

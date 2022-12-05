@@ -33,25 +33,16 @@ colnames(open_restaurants_nyc_nas)[c(34,35)] <- c("Latitude", "Longitude")
 open_restaurants_nyc <- open_restaurants_nyc %>% dplyr::rows_update(open_restaurants_nyc_nas[,c("globalid", "Latitude", "Longitude")], by = "globalid")
 
 coord_nas <- which(is.na(open_restaurants_nyc$Longitude)  | is.na(open_restaurants_nyc$Latitude)) 
-length(coord_nas) / nrow(open_restaurants_nyc) * 200 # 4.5 % do not have coordinates ###--- vdo comment: why do you multiply by 200?
 
 # build spatial open restaurant dataset 
 open_restaurants_nyc_sf <- sf::st_as_sf(open_restaurants_nyc[-coord_nas,], coords = c("Longitude",
                                            "Latitude"  ), crs = 4326)  %>%
   sf::st_transform(2163)
 
-# read facilities dataset ###--- vdo comment: possibly have a descrition that POIs are facilities + POI dataset (unless they are different?) Still would benefit from additional description---###
-facilities_nyc_sf <- sf::read_sf(paste0(points_of_interest.data.folder, "facilities_complete_2021-05-07.shp"))  %>%
-  sf::st_transform(2163)
-
 # read POIs dataset 
 poi_nyc_sf <- sf::read_sf(paste0(points_of_interest.data.folder, "geo_export_a41a111b-823e-4751-b748-0f3782bc90b7.shp"))  %>%
   sf::st_transform(2163)
 
-# read safegraph dataset ###--- vdo comment: what does the safegraph dataset contribute?---###
-load(paste0(mobility.data.folder, "NYC_CensusTracts_share.RData"))
-safegraph_data <- comp
-colnames(safegraph_data)[1] <- "GEOID"
 
 # read census tracts dataset
 census_tracts_ses <- readRDS(paste0(generated.data.folder, "census_tracts_ses.rds"))  %>%
@@ -67,15 +58,6 @@ open_restaurants_cns_trct <- open_restaurants_cens_tr_df %>%
   dplyr::tally()  %>%
   dplyr::rename(open_restaurants = n)
 
-# estimate total number of facilities per census tract
-facilities_cens_tr <- sf::st_intersection(facilities_nyc_sf, sf::st_difference(census_tracts_ses))
-facilities_cens_tr_df <- facilities_cens_tr
-sf::st_geometry(facilities_cens_tr_df) <- NULL
-facilities_cns_trct <- facilities_cens_tr_df %>%
-  dplyr::group_by(GEOID) %>%
-  dplyr::tally()  %>%
-  dplyr::rename(facilities = n)
-
 # estimate total number of POIs per census tract
 poi_nyc_sf_cens_tr <- sf::st_intersection(poi_nyc_sf, sf::st_difference(census_tracts_ses))
 poi_nyc_sf_df <- poi_nyc_sf_cens_tr
@@ -85,14 +67,7 @@ poi_nyc_cns_trct <- poi_nyc_sf_df %>%
   dplyr::tally()  %>%
   dplyr::rename(poi_nyc = n)
 
-# estimate total number of POIs in the safegraph dataset
-safegraph_poi_cns_trct <- safegraph_data %>%
-  dplyr::group_by(GEOID) %>%
-  dplyr::summarise(poi_safegraph = round(mean(poi.n),0))
-
 # combine datasets
-poi_nyc <- left_join0(open_restaurants_cns_trct, facilities_cns_trct, by = 'GEOID')
-poi_nyc <- left_join0(poi_nyc, poi_nyc_cns_trct, by = 'GEOID')
-poi_nyc <- left_join0(poi_nyc, safegraph_poi_cns_trct, by = 'GEOID')
+poi_nyc <- left_join0(open_restaurants_cns_trct, poi_nyc_cns_trct, by = 'GEOID')
 # save
 saveRDS(poi_nyc, paste0(generated.data.folder, "poi_nyc", ".rds"))

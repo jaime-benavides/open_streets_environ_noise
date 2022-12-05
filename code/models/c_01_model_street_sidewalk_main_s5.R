@@ -50,12 +50,12 @@ op_st_noise$day <- op_st_noise$day - ifelse(as.Date(op_st_noise$date) > as.Date(
 
 # scale variables by standard deviation
 scaled <- dplyr::ungroup(op_st_noise) %>% 
-  dplyr::select(perc_area, mean_height, area_density_plan, pop_dens, perc.black, perc.hisp, perc.pov, day) %>% 
+  dplyr::select(mean_height, area_density_plan, pop_dens, perc.black, perc.hisp, perc.pov, day) %>% 
   purrr::map_df(~ scale(.x, center = FALSE, scale = sd(.x, na.rm = TRUE)))
 
 # put together data on noise complaints and other unscaled variables with the scaled variables
-data_scale <- cbind(op_st_noise[, c("GEOID", "date", "residential", "street_sidewalk", "commercial", "vehicle", "night_noise", "evening_noise", "afternoon_noise", "morning_noise", "treated", "intervened", "presence")],
-                  scaled[,c("perc_area", "mean_height", "area_density_plan", "pop_dens", "perc.black", "perc.hisp", "perc.pov", "day")])
+data_scale <- cbind(op_st_noise[, c("GEOID", "date", "residential", "street_sidewalk", "commercial", "vehicle", "night_noise", "evening_noise", "afternoon_noise", "morning_noise", "treated", "intervened", "presence", "perc_area")],
+                  scaled[,c("mean_height", "area_density_plan", "pop_dens", "perc.black", "perc.hisp", "perc.pov", "day")])
 
 
 # add temporal terms based on https://petolau.github.io/Analyzing-double-seasonal-time-series-with-GAM-in-R/

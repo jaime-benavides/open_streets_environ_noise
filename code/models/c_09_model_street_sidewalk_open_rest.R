@@ -43,8 +43,8 @@ op_st_noise <- dplyr::left_join(noise_prep_diff, census_tracts_ses_df[,c("GEOID"
                                                       "perc.hisp", "perc.pov", "area_density_plan", "mean_height", "pop_dens" )], 
                  by = "GEOID")
 
-# add open restaurants and add safegraph poi data
-op_st_noise <- dplyr::left_join(op_st_noise, poi_nyc[,c("GEOID", "open_restaurants","poi_safegraph", "poi_nyc")], 
+# add open restaurants and poi data
+op_st_noise <- dplyr::left_join(op_st_noise, poi_nyc[,c("GEOID", "open_restaurants", "poi_nyc")], 
                                 by = "GEOID")
 
 op_st_noise$GEOID <- as.factor(op_st_noise$GEOID)
@@ -52,11 +52,11 @@ op_st_noise$day <- 1 + as.numeric(as.Date(op_st_noise$date)) - as.numeric(as.Dat
 op_st_noise$day <- op_st_noise$day - ifelse(as.Date(op_st_noise$date) > as.Date("2020-01-01"),(as.numeric(as.Date("2021-06-21"))-as.numeric(as.Date("2019-09-23"))),0)
 
 scaled <- dplyr::ungroup(op_st_noise) %>% 
-  dplyr::select(perc_area, mean_height, area_density_plan, pop_dens, perc.black, perc.hisp, perc.pov, day, open_restaurants, poi_safegraph, poi_nyc) %>% 
+  dplyr::select(mean_height, area_density_plan, pop_dens, perc.black, perc.hisp, perc.pov, day, open_restaurants, poi_nyc) %>% 
   purrr::map_df(~ scale(.x, center = FALSE, scale = sd(.x, na.rm = TRUE)))
 
-data_scale <- cbind(op_st_noise[, c("GEOID", "date", "residential", "street_sidewalk", "commercial", "vehicle", "night_noise", "evening_noise", "afternoon_noise", "morning_noise", "treated", "intervened", "presence")],
-                  scaled[,c("perc_area", "mean_height", "area_density_plan", "pop_dens", "perc.black", "perc.hisp", "perc.pov", "day", "open_restaurants", "poi_safegraph", "poi_nyc")])
+data_scale <- cbind(op_st_noise[, c("GEOID", "date", "residential", "street_sidewalk", "commercial", "vehicle", "night_noise", "evening_noise", "afternoon_noise", "morning_noise", "treated", "intervened", "presence", "perc_area")],
+                  scaled[,c("mean_height", "area_density_plan", "pop_dens", "perc.black", "perc.hisp", "perc.pov", "day", "open_restaurants", "poi_nyc")])
 
 
 # add temporal terms based on https://petolau.github.io/Analyzing-double-seasonal-time-series-with-GAM-in-R/
